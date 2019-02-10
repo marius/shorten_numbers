@@ -1,0 +1,8 @@
+[package]
+name = "shorten_numbers"
+version = "0.1.0"
+authors = ["marius <marius@nuenneri.ch>"]
+edition = "2018"
+
+[dependencies]
+onig = "4.2"
