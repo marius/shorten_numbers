@@ -1,6 +1,14 @@
-use std::env;
-use std::io::{self, BufRead};
+use std::io::{stdin, BufRead};
+use structopt::StructOpt;
 use onig::*;
+
+#[derive(Debug, StructOpt)]
+#[structopt(name = "short_numbers", about = "A filter to shorten numbers")]
+struct Opt {
+    /// Use SI suffixes to shorten the numbers
+    #[structopt(short = "s", long = "suffix")]
+    suffix: bool,
+}
 
 const SUFFIXES: [&str; 9] = ["", "k", "M", "G", "T", "P", "E", "Z", "Y"];
 
@@ -16,16 +24,11 @@ fn convert(number: &str) -> String {
 }
 
 fn main() {
-    let mut suffix_mode = false;
-    if let Some(arg) = env::args().nth(1) {
-        if arg == "-s" {
-            suffix_mode = true;
-        }
-    }
+    let opt = Opt::from_args();
 
-    if suffix_mode {
+    if opt.suffix {
         let re = Regex::new(r"(\d+(\.\d+)?)").unwrap();
-        for line in io::stdin().lock().lines() {
+        for line in stdin().lock().lines() {
             let l = line.unwrap();
             println!("{}", re.replace_all(&l, |caps: &Captures| {
                 convert(caps.at(1).unwrap())
@@ -33,7 +36,7 @@ fn main() {
         }
     } else {
         let re = Regex::new(r"(\d)(?=(\d\d\d)+(?!\d))").unwrap();
-        for line in io::stdin().lock().lines() {
+        for line in stdin().lock().lines() {
             let l = line.unwrap();
             println!("{}", re.replace_all(&l, |caps: &Captures| {
                 format!("{}_", caps.at(1).unwrap())

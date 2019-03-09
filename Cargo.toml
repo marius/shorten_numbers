@@ -6,3 +6,4 @@ edition = "2018"
 
 [dependencies]
 onig = "4.2"
+structopt = "0.2"
