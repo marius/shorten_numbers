@@ -2,7 +2,7 @@
 name = "shorten_numbers"
 version = "0.1.0"
 authors = ["marius <marius@nuenneri.ch>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 onig = "6.4"
