@@ -67,5 +67,12 @@ mod tests {
         assert_eq!(convert("9000000000"), "9G");
         assert_eq!(convert("9876543210"), "10G");
         assert_eq!(convert("10476543210"), "10G");
+        assert_eq!(convert("10000000000000"), "10T");
+        assert_eq!(convert("50000000000000000"), "50P");
+        assert_eq!(convert("1000000000000000000"), "1E");
+        assert_eq!(convert("7000000000000000000000"), "7Z");
+        assert_eq!(convert("123400000000000000000000"), "123Z");
+        assert_eq!(convert("99000000000000000000000000"), "99Y");
+        assert_eq!(convert("9876543210000000000000000000"), "9877Y");
     }
 }
